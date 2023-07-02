@@ -1,0 +1,64 @@
+# Ignore bundler config.
+/.bundle
+
+# Ignore the default SQLite database.
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+/public/system
+/coverage/
+/spec/tmp
+*.orig
+rerun.txt
+pickle-email-*.html
+.rspec
+tmp/*
+
+/node_modules
+/yarn-error.log
+
+.byebug_history
+
+# Development variables
+.env
+
+# Git repo
+.git
+
+# Python cache
+__pycache__
+
+# Ignore Rubymine
+/.idea
+
+# Ignore mac stupid DS_Store
+*.DS_Store
+
+# Ignore VIM swp files
+*.swp
+*.swo
+
+# if using bower-rails ignore default bower_components path bower.json files
+/vendor/assets/bower_components
+*.bowerrc
+bower.json
+
+# Ignore pow environment settings
+.powenv
+
+# Ignore Byebug command history file.
+.byebug_history
+
+# Ignore Solr files
+solr
+
+# Ignore yard documentation cache
+.yardoc
+
+# Vscode stuff
+.vscode

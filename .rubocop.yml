@@ -1,0 +1,54 @@
+require: 
+  - rubocop-rails
+  - rubocop-rspec
+
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  NewCops: disable
+  # Include:
+  #   - 'app/**/*.rb'
+  Exclude:
+    - 'bin/*'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'vendor/**/*'
+    - 'lib/**/*'
+
+Layout/LineLength:
+  Enabled: false
+  # Max: 130
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+    - 'test/**/*'
+    - config/**/*
+
+# Metrics/AbcSize:
+#   Exclude:
+#     - 'app/models/ability.rb'
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/ExponentialNotation:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Lint/RaiseException:
+  Enabled: true
+
+Naming/PredicateName:
+  Enabled: false

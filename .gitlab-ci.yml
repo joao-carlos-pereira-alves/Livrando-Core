@@ -1,0 +1,196 @@
+# You can override the included template(s) by including variable overrides
+# SAST customization: https://docs.gitlab.com/ee/user/application_security/sast/#customizing-the-sast-settings
+# Secret Detection customization: https://docs.gitlab.com/ee/user/application_security/secret_detection/#customizing-settings
+# Dependency Scanning customization: https://docs.gitlab.com/ee/user/application_security/dependency_scanning/#customizing-the-dependency-scanning-settings
+# Note that environment variables can be set in several places
+# See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
+# stages:
+# - test
+# sast:
+#   stage: test
+# include:
+# - template: Security/SAST.gitlab-ci.yml
+
+image: "alpine"
+
+before_script:
+  - echo "${CI_COMMIT_REF_NAME}-${CI_COMMIT_SHORT_SHA}" > .app_revision
+
+stages:
+  - test
+  - build
+  - report
+  - deploy
+
+cache:
+  key: gems_and_packages
+  policy: pull
+  paths:
+    - apt-cache/
+    - vendor/ruby
+
+
+###################
+##  CI/CD Bases  ##
+###################
+
+.base:
+  image: ruby:2.7.6-slim
+  cache:
+    key: gems_and_packages
+    paths:
+      - vendor/ruby
+  variables:
+    SKIP_ORACLE_ADAPTER: "true"
+  before_script:
+    - apt-get update -qq
+    - apt-get install -y build-essential sqlite3 libsqlite3-dev libpq-dev
+    - gem install bundler --no-document
+    - bundle config set --local path 'vendor'
+    - bundle install --jobs $(nproc) "${FLAGS[@]}"
+
+.base_db:
+  extends: .base
+  services:
+    - name: postgres:13-alpine
+      alias: db
+  variables:
+    RAILS_ENV: test
+    DATABASE_USER: postgres
+    DATABASE_PASSWORD: "postgres"
+    DATABASE_NAME: sgv_test
+    DATABASE_HOST: db
+    DATABASE_PORT: 5432
+    DATABASE_ADAPTER: postgresql
+    SGV_DATABASE: sgv_test
+    DEV_DATABASE_ADAPTER: postgresql
+    POSTGRES_DB: sgv_test
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: "postgres"
+  before_script:
+    - apt-get update -qq
+    - apt-get install -y build-essential sqlite3 libsqlite3-dev libpq-dev
+    - gem install bundler --no-document
+    - bundle config set --local path 'vendor'
+    - bundle install --jobs $(nproc) "${FLAGS[@]}"
+    - bundle exec rake db:reset
+
+#######################
+##  Build Pipelines  ##
+#######################
+
+build:
+  image: docker:latest
+  stage: build
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  # Default branch leaves tag empty (= latest tag)
+  # All other branches are tagged with the escaped branch name (commit ref slug)
+  script:
+    - timestamp=$(date +"%y%m%d%H%M%S")
+    - |
+      if [[ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]]; then
+        tag="latest"
+        tag_stamped="${timestamp}"
+        echo "Running on default branch '$CI_DEFAULT_BRANCH': tag = 'latest'"
+      else
+        tag="$CI_COMMIT_REF_SLUG"
+        tag_stamped="${timestamp}-$CI_COMMIT_REF_SLUG"
+        echo "Running on branch '$CI_COMMIT_BRANCH': tag = $tag"
+      fi
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:${tag}" -t "$CI_REGISTRY_IMAGE:${tag_stamped}" ./
+    - docker push "$CI_REGISTRY_IMAGE:${tag}"
+    - docker push "$CI_REGISTRY_IMAGE:${tag_stamped}"
+  only:
+    - tags
+    - hom
+    - dev
+    - main
+
+######################
+##  Test Pipelines  ##
+######################
+
+test:rspec:
+  extends: .base_db
+  stage: test
+  coverage: '/LOC\s\(\d+\.\d+%\)\scovered/'
+  allow_failure: false
+  artifacts:
+    name: coverage
+    when: always
+    paths:
+      - coverage/
+  variables:
+    COVERAGE: "true"
+  only:
+    - merge_requests
+    - master
+    - dev
+    - tag
+  script:
+    - mkdir -p coverage
+    - bundle exec rspec
+
+
+########################
+##  report Pipelines  ##
+########################
+
+test:brakeman:
+  extends: .base
+  stage: test
+  allow_failure: true
+  artifacts:
+    name: brakeman_report
+    when: always
+    paths:
+      - brakeman/
+  only:
+    - master
+    - dev
+    - tag
+    - merge_requests
+  script:
+    - mkdir -p brakeman
+    - bundle exec brakeman --format html -o brakeman/index.html
+    
+test:dawnscanner:
+  extends: .base
+  stage: test
+  allow_failure: true
+  artifacts:
+    name: dawnscanner_report
+    when: always
+    paths:
+      - dawnscanner
+  only:
+    - master
+    - dev
+    - tag
+    - merge_requests
+  script:
+    - mkdir -p dawnscanner
+    - bundle exec dawn --html -zF dawnscanner/index.html .
+
+
+########################
+##  deploy Pipelines  ##
+########################
+
+deploy:staging:
+  stage: deploy
+  only:
+    - dev # TODO: Remove when "release candidate" tags are adopted
+    - /^v\d+\.\d+\.\d+-rc\d+$/ # Release candidate tags
+  script: 
+    - echo "TODO"
+
+deploy:production:
+  stage: deploy
+  only: 
+    - /^v\d+\.\d+\.\d+$/ # Version tags
+  script: 
+    - echo "TODO"

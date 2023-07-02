@@ -1,0 +1,11 @@
+# my_first_job:
+#   cron: "*/1* * * *"
+#   class: "CheckLastPatientConnectionJob"
+#   queue: default
+
+# second_job:
+#   cron: "*/1* * * *" # execute at every 30 minutes
+#   class: "HardWorker"
+#   queue: hard_worker_long
+#   args:
+#     hard: "stuff"

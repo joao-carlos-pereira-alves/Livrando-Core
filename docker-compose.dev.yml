@@ -1,0 +1,41 @@
+version: '3.4'
+services:
+  db:
+    image: postgres:10.17
+    container_name: database_backend
+    environment: 
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: backend_development
+    networks:
+      - backend_development
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+
+  backend:
+    container_name: tcc-backend
+    build: 
+      context: .
+      dockerfile: ./Dockerfile.dev
+    volumes:  
+      - '.:/app'
+    environment:
+      PORT: ${BACKEND_PORT}
+      SECRET_KEY_BASE: 936d7c733804b658d863877bf0fd71b6b60da8fde36cf96ab7d2427cefca9f3255fb9d02fe98c9afdfe96feae396c58cd9b8fc27d0cb459455eb5c71f8913aa4
+      RAILS_ENV: development
+      DATABASE_HOST: db
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_NAME: backend_development
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+    networks:
+      - backend_development
+    stdin_open: true
+    tty: true
+
+networks:
+  backend_development:
+volumes: 
+  postgres:
