@@ -16,16 +16,25 @@ ActiveRecord::Schema.define(version: 2023_07_02_184019) do
   enable_extension "plpgsql"
 
   create_table "users", force: :cascade do |t|
-    t.string "email", default: "", null: false
+    t.string "email_ciphertext", default: "", null: false
+    t.string "email_bidx"
+    t.string "cpf_ciphertext", default: "", null: false
+    t.string "cpf_bidx"
     t.string "encrypted_password", default: "", null: false
+    t.string "name"
+    t.date "birth_date"
+    t.string "phone_ciphertext", default: "", null: false
+    t.string "phone_bidx"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "jti", null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["cpf_bidx"], name: "index_users_on_cpf_bidx", unique: true
+    t.index ["email_bidx"], name: "index_users_on_email_bidx", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true
+    t.index ["phone_bidx"], name: "index_users_on_phone_bidx", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

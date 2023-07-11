@@ -33,10 +33,9 @@ gem 'rack-cors'
 # JWT authentication for devise with configurable token revocation strategies
 gem 'devise', '~> 4.8.0'
 gem 'devise-jwt', '~> 0.9.0'
-gem 'dry-matcher'
-gem 'dry-monads'
-gem 'dry-validation'
 gem 'cpf_cnpj'
+gem "lockbox"
+gem "blind_index"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
