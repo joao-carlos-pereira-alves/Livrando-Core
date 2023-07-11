@@ -234,3 +234,8 @@ pt-BR:
       update: "Atualização"
       create: "Criação"
       destroy: "Exclusão"
+  api:
+    login:
+      user_not_found: "Usuário não encontrado."
+      generic_error:  "Não foi possível realizar a operação."
+      unpermitted_params: "Parâmetros não permitidos."
