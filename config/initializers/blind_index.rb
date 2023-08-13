@@ -1,0 +1,1 @@
+BlindIndex.master_key = ENV['BLIND_INDEX_MASTER_KEY']
