@@ -1,0 +1,1 @@
+json.extract! book, :id, :author, :title, :description, :status, :genre, :isbn, :publishing_company, :publication_date, :language, :amount, :created_at, :updated_at
