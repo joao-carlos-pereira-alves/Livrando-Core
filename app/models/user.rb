@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   include Devise::JWT::RevocationStrategies::JTIMatcher
 
+  has_many :my_responsible_books, class_name: 'Book', foreign_key: :responsible_id, dependent: :destroy
+  has_many :created_books, class_name: 'Book', foreign_key: :added_by_id, dependent: :destroy
+
   has_encrypted :email, :cpf, :phone
   blind_index   :email, :cpf, :phone
 
