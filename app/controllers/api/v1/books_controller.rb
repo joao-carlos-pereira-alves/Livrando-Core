@@ -5,6 +5,8 @@ class BooksController < ApplicationController
   # GET /books.json
   def index
     @books = Book.all
+    @books = @books.filter(params, @movies) if filter_params_present?
+    @books = @books.paginate(page: params[:page], per_page: params[:per_page]) if params[:user_id]
   end
 
   # GET /books/1
@@ -49,5 +51,12 @@ class BooksController < ApplicationController
     # Only allow a list of trusted parameters through.
     def book_params
       params.require(:book).permit(:added_by, :responsible, :author, :title, :description, :status, :genre, :isbn, :publishing_company, :publication_date, :language, :amount)
+    end
+
+    def filter_params_present?
+      params.slice(:title, :author, :description, :publication_year, :publishing_company,
+                   :isbn, :genre, :language, :amount,
+                   :status, :responsible, :added_by
+                   :created_at, :updated_at).values.compact.any?
     end
 end
