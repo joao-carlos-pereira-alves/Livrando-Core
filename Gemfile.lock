@@ -60,6 +60,7 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
+    acts_as_votable (0.14.0)
     argon2-kdf (0.1.7)
     ast (2.4.2)
     bcrypt (3.1.19)
@@ -105,38 +106,6 @@ GEM
       zeitwerk (~> 2.6)
     dry-core (1.0.0)
       concurrent-ruby (~> 1.0)
-      zeitwerk (~> 2.6)
-    dry-inflector (1.0.0)
-    dry-initializer (3.1.1)
-    dry-logic (1.5.0)
-      concurrent-ruby (~> 1.0)
-      dry-core (~> 1.0, < 2)
-      zeitwerk (~> 2.6)
-    dry-matcher (1.0.0)
-      dry-core (~> 1.0, < 2)
-    dry-monads (1.6.0)
-      concurrent-ruby (~> 1.0)
-      dry-core (~> 1.0, < 2)
-      zeitwerk (~> 2.6)
-    dry-schema (1.13.2)
-      concurrent-ruby (~> 1.0)
-      dry-configurable (~> 1.0, >= 1.0.1)
-      dry-core (~> 1.0, < 2)
-      dry-initializer (~> 3.0)
-      dry-logic (>= 1.4, < 2)
-      dry-types (>= 1.7, < 2)
-      zeitwerk (~> 2.6)
-    dry-types (1.7.1)
-      concurrent-ruby (~> 1.0)
-      dry-core (~> 1.0)
-      dry-inflector (~> 1.0)
-      dry-logic (~> 1.4)
-      zeitwerk (~> 2.6)
-    dry-validation (1.10.0)
-      concurrent-ruby (~> 1.0)
-      dry-core (~> 1.0, < 2)
-      dry-initializer (~> 3.0)
-      dry-schema (>= 1.12, < 2)
       zeitwerk (~> 2.6)
     erubi (1.12.0)
     factory_bot (6.1.0)
@@ -328,6 +297,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_votable
   blind_index
   bootsnap (>= 1.4.4)
   brakeman
@@ -336,9 +306,6 @@ DEPENDENCIES
   dawnscanner
   devise (~> 4.8.0)
   devise-jwt (~> 0.9.0)
-  dry-matcher
-  dry-monads
-  dry-validation
   factory_bot_rails (~> 6.1.0)
   faker (~> 2.10)
   jbuilder (~> 2.7)
