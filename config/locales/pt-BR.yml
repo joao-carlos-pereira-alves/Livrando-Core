@@ -239,3 +239,5 @@ pt-BR:
       user_not_found: "Usuário não encontrado."
       generic_error:  "Não foi possível realizar a operação."
       unpermitted_params: "Parâmetros não permitidos."
+    report:
+      report_yourself_error: "Não é possível denunciar a si mesmo."

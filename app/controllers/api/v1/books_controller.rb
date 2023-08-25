@@ -6,7 +6,7 @@ class BooksController < ApplicationController
   def index
     @books = Book.all
     @books = @books.filter(params, @movies) if filter_params_present?
-    @books = @books.paginate(page: params[:page], per_page: params[:per_page]) if params[:user_id]
+    @books = @books.paginate(page: params[:page], per_page: params[:per_page]) if params[:page].present? && params[:per_page].present?
   end
 
   # GET /books/1
@@ -57,6 +57,7 @@ class BooksController < ApplicationController
       params.slice(:title, :author, :description, :publication_year, :publishing_company,
                    :isbn, :genre, :language, :amount,
                    :status, :responsible, :added_by
-                   :created_at, :updated_at).values.compact.any?
+                   :created_at, :updated_at
+                  ).values.compact.any?
     end
 end

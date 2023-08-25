@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_25_003021) do
+ActiveRecord::Schema.define(version: 2023_08_25_013033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,17 @@ ActiveRecord::Schema.define(version: 2023_08_25_003021) do
     t.index ["user_id"], name: "index_favorite_books_on_user_id"
   end
 
+  create_table "reports", force: :cascade do |t|
+    t.bigint "reporter_id", null: false
+    t.bigint "reported_user_id", null: false
+    t.integer "reason", default: 0
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["reported_user_id"], name: "index_reports_on_reported_user_id"
+    t.index ["reporter_id"], name: "index_reports_on_reporter_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email_ciphertext", default: "", null: false
     t.string "email_bidx"
@@ -57,6 +68,8 @@ ActiveRecord::Schema.define(version: 2023_08_25_003021) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "jti", null: false
+    t.integer "status", default: 0
+    t.integer "report_count", default: 0
     t.index ["cpf_bidx"], name: "index_users_on_cpf_bidx", unique: true
     t.index ["email_bidx"], name: "index_users_on_email_bidx", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true
@@ -67,4 +80,6 @@ ActiveRecord::Schema.define(version: 2023_08_25_003021) do
   add_foreign_key "books", "users", column: "added_by_id"
   add_foreign_key "books", "users", column: "responsible_id"
   add_foreign_key "favorite_books", "users"
+  add_foreign_key "reports", "users", column: "reported_user_id"
+  add_foreign_key "reports", "users", column: "reporter_id"
 end
