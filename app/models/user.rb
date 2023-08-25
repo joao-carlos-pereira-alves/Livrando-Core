@@ -1,6 +1,10 @@
 class User < ApplicationRecord
   include Devise::JWT::RevocationStrategies::JTIMatcher
 
+  has_many :my_responsible_books, class_name: 'Book', foreign_key: :responsible_id, dependent: :destroy
+  has_many :created_books, class_name: 'Book', foreign_key: :added_by_id, dependent: :destroy
+  has_many :favorite_books
+
   has_encrypted :email, :cpf, :phone
   blind_index   :email, :cpf, :phone
 
@@ -9,7 +13,7 @@ class User < ApplicationRecord
          :jwt_authenticatable, jwt_revocation_strategy: self
   
   validates :email, presence: true, format: { with: /\A[^@\s]+@[^@\s]+\z/ }
-  validates :name, :birth_date, :phone, :cpf, presence: true
+  validates :name,  :birth_date, :phone, :cpf, presence: true
   validate  :valid_cpf
   
   def token
