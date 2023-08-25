@@ -4,7 +4,8 @@ class FavoriteBooksController < ApplicationController
   # GET /favorite_books
   # GET /favorite_books.json
   def index
-    @favorite_books = FavoriteBook.paginate(page: params[:page], per_page: params[:per_page]) if params[:user_id]
+    @favorite_books = FavoriteBook.all
+    @favorite_books = @favorite_books.paginate(page: params[:page], per_page: params[:per_page]) if params[:page].present? && params[:per_page].present?
   end
 
   # GET /favorite_books/1

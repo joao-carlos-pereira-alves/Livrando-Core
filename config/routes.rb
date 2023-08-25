@@ -24,6 +24,7 @@ Rails.application.routes.draw do
         defaults format: :json do
           resources :books
           resources :favorite_books
+          resources :reports
         end
       end
     end
