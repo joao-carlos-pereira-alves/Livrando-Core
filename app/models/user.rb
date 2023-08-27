@@ -3,9 +3,11 @@ class User < ApplicationRecord
 
   has_many :my_responsible_books, class_name: 'Book', foreign_key: :responsible_id, dependent: :destroy
   has_many :created_books,        class_name: 'Book', foreign_key: :added_by_id, dependent: :destroy
-  has_many :reports_made, class_name: 'Report', foreign_key: :reporter_id, dependent: :destroy
-  has_many :reports_received, class_name: 'Report', foreign_key: :reported_user_id, dependent: :destroy
+  has_many :reports_made,         class_name: 'Report', foreign_key: :reporter_id, dependent: :destroy
+  has_many :reports_received,     class_name: 'Report', foreign_key: :reported_user_id, dependent: :destroy
   has_many :favorite_books, dependent: :destroy
+  has_many :evaluated_objects, class_name: 'Rating', foreign_key: :evaluator_id
+  has_many :ratings, as: :evaluable, dependent: :destroy
 
   has_encrypted :email, :cpf, :phone
   blind_index   :email, :cpf, :phone
