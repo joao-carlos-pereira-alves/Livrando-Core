@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_26_223652) do
+ActiveRecord::Schema.define(version: 2023_08_27_192150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,20 @@ ActiveRecord::Schema.define(version: 2023_08_26_223652) do
     t.index ["reporter_id"], name: "index_reports_on_reporter_id"
   end
 
+  create_table "trades", force: :cascade do |t|
+    t.bigint "negotiator_id", null: false
+    t.bigint "sender_id", null: false
+    t.bigint "book_id", null: false
+    t.integer "status", default: 0
+    t.integer "category", default: 0
+    t.date "negociation_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_trades_on_book_id"
+    t.index ["negotiator_id"], name: "index_trades_on_negotiator_id"
+    t.index ["sender_id"], name: "index_trades_on_sender_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email_ciphertext", default: "", null: false
     t.string "email_bidx"
@@ -95,4 +109,7 @@ ActiveRecord::Schema.define(version: 2023_08_26_223652) do
   add_foreign_key "ratings", "users", column: "evaluator_id"
   add_foreign_key "reports", "users", column: "reported_user_id"
   add_foreign_key "reports", "users", column: "reporter_id"
+  add_foreign_key "trades", "books"
+  add_foreign_key "trades", "users", column: "negotiator_id"
+  add_foreign_key "trades", "users", column: "sender_id"
 end

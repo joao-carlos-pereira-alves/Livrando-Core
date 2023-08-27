@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   include Devise::JWT::RevocationStrategies::JTIMatcher
 
@@ -8,6 +10,8 @@ class User < ApplicationRecord
   has_many :favorite_books, dependent: :destroy
   has_many :evaluated_objects, class_name: 'Rating', foreign_key: :evaluator_id
   has_many :ratings, as: :evaluable, dependent: :destroy
+  has_many :negotiated_trades, class_name: 'Trade', foreign_key: 'negotiator_id'
+  has_many :sent_trades,       class_name: 'Trade', foreign_key: 'sender_id'
 
   has_encrypted :email, :cpf, :phone
   blind_index   :email, :cpf, :phone
@@ -20,7 +24,7 @@ class User < ApplicationRecord
   validates :name,  :birth_date, :phone, :cpf, presence: true
   validate  :valid_cpf
 
-  enum status: [ :inactive, :active, :blocked ]
+  enum status: [ :unlocked, :blocked ]
   
   def token
     token, _payload = Warden::JWTAuth::UserEncoder.new.call(self, :user, nil)
