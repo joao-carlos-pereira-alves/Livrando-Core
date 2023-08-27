@@ -4,6 +4,8 @@ class Book < ApplicationRecord
 	belongs_to :added_by,    class_name: "User", foreign_key: :added_by_id
 	belongs_to :responsible, class_name: "User", foreign_key: :responsible_id
 
+	has_many :ratings, as: :evaluable
+
 	enum status:   [ :available, :unavailable ]
 	enum genre:    [ :male, :female, :others ]
 	enum language: [
