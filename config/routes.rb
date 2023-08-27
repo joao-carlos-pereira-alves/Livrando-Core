@@ -23,10 +23,11 @@ Rails.application.routes.draw do
       namespace :v1 do
         defaults format: :json do
           resources :books
-          resources :favorite_books
           resources :reports
           resources :ratings
           resources :trades
+          resources :categories
+          resources :favorite_books
         end
       end
     end

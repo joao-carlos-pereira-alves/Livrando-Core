@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_27_192150) do
+ActiveRecord::Schema.define(version: 2023_08_27_223857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "book_categories", force: :cascade do |t|
+    t.bigint "book_id", null: false
+    t.bigint "category_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_book_categories_on_book_id"
+    t.index ["category_id"], name: "index_book_categories_on_category_id"
+  end
 
   create_table "books", force: :cascade do |t|
     t.bigint "added_by_id", null: false
@@ -32,6 +41,12 @@ ActiveRecord::Schema.define(version: 2023_08_27_192150) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["added_by_id"], name: "index_books_on_added_by_id"
     t.index ["responsible_id"], name: "index_books_on_responsible_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "favorite_books", force: :cascade do |t|
@@ -103,6 +118,8 @@ ActiveRecord::Schema.define(version: 2023_08_27_192150) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "book_categories", "books"
+  add_foreign_key "book_categories", "categories"
   add_foreign_key "books", "users", column: "added_by_id"
   add_foreign_key "books", "users", column: "responsible_id"
   add_foreign_key "favorite_books", "users"
