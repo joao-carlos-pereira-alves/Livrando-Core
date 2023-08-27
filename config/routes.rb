@@ -26,6 +26,7 @@ Rails.application.routes.draw do
           resources :favorite_books
           resources :reports
           resources :ratings
+          resources :trades
         end
       end
     end

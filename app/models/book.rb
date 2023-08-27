@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Book < ApplicationRecord
 	default_scope { order(release_year: :asc) }
 
@@ -5,9 +7,10 @@ class Book < ApplicationRecord
 	belongs_to :responsible, class_name: "User", foreign_key: :responsible_id
 
 	has_many :ratings, as: :evaluable
+	has_many :trades
 
-	enum status:   [ :available, :unavailable ]
-	enum genre:    [ :male, :female, :others ]
+	enum status:   [ :available, :negotiation_in_progress, :borrowed, :donated, :replacement, :unavailable, :lost ]
+	enum genre:    []
 	enum language: [
 		:portuguese,
 		:english,
@@ -32,9 +35,6 @@ class Book < ApplicationRecord
 		:malay,
 		:swahili
 	]
-
-	t.references :added_by,    null: false, foreign_key: { to_table: :users }
-	t.references :responsible, null: false, foreign_key: { to_table: :users }
 
 	def self.filter(params, movies = Movie.all)
     filter_params = [
