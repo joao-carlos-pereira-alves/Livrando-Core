@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  mount ActionCable.server => '/websocket'
+
   constraints subdomain: /.*/ do
     devise_for(
       :users,
@@ -28,6 +30,7 @@ Rails.application.routes.draw do
           resources :trades
           resources :categories
           resources :favorite_books
+          resources :chats
         end
       end
     end
