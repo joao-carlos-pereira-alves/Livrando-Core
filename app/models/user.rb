@@ -8,10 +8,12 @@ class User < ApplicationRecord
   has_many :reports_made,         class_name: 'Report', foreign_key: :reporter_id, dependent: :destroy
   has_many :reports_received,     class_name: 'Report', foreign_key: :reported_user_id, dependent: :destroy
   has_many :favorite_books, dependent: :destroy
-  has_many :evaluated_objects, class_name: 'Rating', foreign_key: :evaluator_id
+  has_many :evaluated_objects, class_name: 'Rating', foreign_key: :evaluator_id, dependent: :destroy
   has_many :ratings, as: :evaluable, dependent: :destroy
-  has_many :negotiated_trades, class_name: 'Trade', foreign_key: 'negotiator_id'
-  has_many :sent_trades,       class_name: 'Trade', foreign_key: 'sender_id'
+  has_many :negotiated_trades, class_name: 'Trade', foreign_key: 'negotiator_id', dependent: :destroy
+  has_many :sent_trades,       class_name: 'Trade', foreign_key: 'sender_id', dependent: :destroy
+  has_many :messages, dependent: :destroy
+  has_many :chat_users, dependent: :destroy
 
   has_encrypted :email, :cpf, :phone
   blind_index   :email, :cpf, :phone
