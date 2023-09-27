@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Book < ApplicationRecord
-	default_scope { order(release_year: :asc) }
+	default_scope { order(publication_year: :asc) }
 
 	belongs_to :added_by,    class_name: "User", foreign_key: :added_by_id
 	belongs_to :responsible, class_name: "User", foreign_key: :responsible_id

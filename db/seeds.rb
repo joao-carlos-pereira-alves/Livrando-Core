@@ -9,6 +9,15 @@
 
 # Categories
 
+# User.create(
+#   email: 'teste@gmail.com',
+#   cpf: '88848249906',
+#   name: 'João Carlos',
+#   birth_date: '01/01/2000',
+#   phone: '61986542184',
+#   password: 123456
+# )
+
 Category.destroy_all
 
 categories = [
@@ -61,3 +70,122 @@ categories.each do |category|
 end
 
 puts "Seeds de categorias concluídos."
+
+# Livro 1
+Book.create!(
+  added_by_id: 1,
+  responsible_id: 3,
+  category_id: Category.first.id,
+  author: "Autor 1",
+  title: "Livro 1",
+  description: "Descrição do Livro 1",
+  status: 1, # Status 1 representa 'Disponível'
+  genre: nil, # Gênero 3 representa 'Ficção Científica'
+  isbn: "978-1234567890",
+  publishing_company: "Editora A",
+  publication_year: "2020",
+  language: 2, # Idioma 2 representa 'Inglês'
+  amount: 5
+)
+
+# Livro 2
+Book.create!(
+  added_by_id: 1,
+  responsible_id: 3,
+  category_id: Category.first.id,
+  author: "Autor 2",
+  title: "Livro 2",
+  description: "Descrição do Livro 2",
+  status: 1,
+  genre: nil, # Gênero 2 representa 'Romance'
+  isbn: "978-0987654321",
+  publishing_company: "Editora B",
+  publication_year: "2019",
+  language: 1, # Idioma 1 representa 'Português'
+  amount: 3
+)
+
+# Livro 3
+Book.create!(
+  added_by_id: 1,
+  responsible_id: 3,
+  category_id: Category.first.id,
+  author: "Autor 3",
+  title: "Livro 3",
+  description: "Descrição do Livro 3",
+  status: 0, # Status 0 representa 'Indisponível'
+  genre: nil, # Gênero 4 representa 'Fantasia'
+  isbn: "978-9876543210",
+  publishing_company: "Editora C",
+  publication_year: "2021",
+  language: 1,
+  amount: 2
+)
+
+# Livro 4
+Book.create!(
+  added_by_id: 1,
+  responsible_id: 3,
+  category_id: Category.first.id,
+  author: "Autor 4",
+  title: "Livro 4",
+  description: "Descrição do Livro 4",
+  status: 1,
+  genre: nil, # Gênero 1 representa 'Mistério'
+  isbn: "978-5432109876",
+  publishing_company: "Editora D",
+  publication_year: "2018",
+  language: 0, # Idioma 0 representa 'Outro'
+  amount: 4
+)
+
+# Livro 5
+Book.create!(
+  added_by_id: 1,
+  responsible_id: 3,
+  category_id: Category.first.id,
+  author: "Autor 5",
+  title: "Livro 5",
+  description: "Descrição do Livro 5",
+  status: 1,
+  genre: nil,
+  isbn: "978-1357924680",
+  publishing_company: "Editora E",
+  publication_year: "2017",
+  language: 1,
+  amount: 1
+)
+
+# Livro 6
+Book.create!(
+  added_by_id: 1,
+  responsible_id: 3,
+  category_id: Category.first.id,
+  author: "Autor 6",
+  title: "Livro 6",
+  description: "Descrição do Livro 6",
+  status: 1,
+  genre: nil,
+  isbn: "978-9876543210",
+  publishing_company: "Editora F",
+  publication_year: "2022",
+  language: 3, # Idioma 3 representa 'Espanhol'
+  amount: 6
+)
+
+# Livro 7
+Book.create!(
+  added_by_id: 1,
+  responsible_id: 3,
+  category_id: Category.first.id,
+  author: "Autor 7",
+  title: "Livro 7",
+  description: "Descrição do Livro 7",
+  status: 1,
+  genre: nil,
+  isbn: "978-5678901234",
+  publishing_company: "Editora G",
+  publication_year: "2016",
+  language: 1,
+  amount: 2
+)
