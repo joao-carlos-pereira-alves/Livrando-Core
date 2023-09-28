@@ -6,9 +6,11 @@ class Book < ApplicationRecord
 	belongs_to :added_by,    class_name: "User", foreign_key: :added_by_id
 	belongs_to :responsible, class_name: "User", foreign_key: :responsible_id
 
-	has_many :book_categories
+	has_many :book_categories, dependent: :destroy
 	has_many :ratings, as: :evaluable
-	has_many :trades
+	has_many :trades, dependent: :destroy
+
+	accepts_nested_attributes_for :book_categories
 
 	enum status:   [ :available, :negotiation_in_progress, :borrowed, :donated, :replacement, :unavailable, :lost ]
 	enum genre:    []
