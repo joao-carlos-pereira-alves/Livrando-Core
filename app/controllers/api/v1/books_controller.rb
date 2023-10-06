@@ -55,14 +55,14 @@ module Api
         # Only allow a list of trusted parameters through.
         def book_params
           params.require(:book).permit(:added_by, :responsible, :author, :title, 
-                                       :description, :status, :genre, :isbn, :publishing_company, 
-                                       :publication_date, :language, :amount, book_categories_attributes: [:category_id])
+                                       :description, :status, :negotiation_type, :isbn, :publishing_company, 
+                                       :publication_year, :language, :amount, book_categories_attributes: [:category_id])
         end
 
         def filter_params_present?
           params.slice(
             :title, :author, :description, :publication_year, :publishing_company,
-            :isbn, :genre, :language, :amount, :status, :responsible, :added_by,
+            :isbn, :negotiation_type, :language, :amount, :status, :responsible, :added_by,
             :created_at, :updated_at
           ).values.compact.any?
         end

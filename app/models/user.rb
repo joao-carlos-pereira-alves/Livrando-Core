@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable,
+         :jwt_authenticatable, jwt_revocation_strategy: self
+
+  # Include default devise modules. Others available are:
   include Devise::JWT::RevocationStrategies::JTIMatcher
 
   has_many :my_responsible_books, class_name: 'Book', foreign_key: :responsible_id, dependent: :destroy
@@ -17,10 +25,6 @@ class User < ApplicationRecord
 
   has_encrypted :email, :cpf, :phone
   blind_index   :email, :cpf, :phone
-
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
-         :jwt_authenticatable, jwt_revocation_strategy: self
   
   validates :email, presence: true, format: { with: /\A[^@\s]+@[^@\s]+\z/ }
   validates :name,  :birth_date, :phone, :cpf, presence: true

@@ -12,8 +12,8 @@ class Book < ApplicationRecord
 
 	accepts_nested_attributes_for :book_categories
 
-	enum status:   [ :available, :negotiation_in_progress, :borrowed, :donated, :replacement, :unavailable, :lost ]
-	enum genre:    []
+	enum status:   [ :available, :negotiation_in_progress, :borrowed, :donated, :replacement, :unavailable, :lost ], _prefix: :book_status
+	enum negotiation_type: [ :replacement, :loan, :donation ]
 	enum language: [
 		:portuguese,
 		:english,
@@ -47,7 +47,7 @@ class Book < ApplicationRecord
       [:publication_year, ->(value) { ["publication_year ILIKE ?", "%#{value}%"] }],
       [:publishing_company, ->(value) { ["publishing_company ILIKE ?", "%#{value}%"] }],
       [:isbn, ->(value) { ["isbn ILIKE ?", "%#{value}%"] }],
-      [:genre, ->(value) { ["genre = ?", "%#{value}%"] }],
+      [:negotiation_type, ->(value) { ["negotiation_type = ?", "%#{value}%"] }],
       [:language, ->(value) { ["language = ?", "%#{value}%"] }],
 			[:amount, ->(value) { ["amount ILIKE ?", "%#{value}%"] }],
 			[:status, ->(value) { ["status = ?", "%#{value}%"] }],
