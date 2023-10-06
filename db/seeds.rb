@@ -92,7 +92,7 @@ Book.create!(
   title: "Livro 1",
   description: "Descrição do Livro 1",
   status: 1, # Status 1 representa 'Disponível'
-  genre: nil, # Gênero 3 representa 'Ficção Científica'
+  negotiation_type: 0, # Gênero 3 representa 'Ficção Científica'
   isbn: "978-1234567890",
   publishing_company: "Editora A",
   publication_year: "2020",
@@ -113,7 +113,7 @@ Book.create!(
   title: "Livro 2",
   description: "Descrição do Livro 2",
   status: 1,
-  genre: nil, # Gênero 2 representa 'Romance'
+  negotiation_type: 0, # Gênero 2 representa 'Romance'
   isbn: "978-0987654321",
   publishing_company: "Editora B",
   publication_year: "2019",
@@ -134,7 +134,7 @@ Book.create!(
   title: "Livro 3",
   description: "Descrição do Livro 3",
   status: 0, # Status 0 representa 'Indisponível'
-  genre: nil, # Gênero 4 representa 'Fantasia'
+  negotiation_type: 0, # Gênero 4 representa 'Fantasia'
   isbn: "978-9876543210",
   publishing_company: "Editora C",
   publication_year: "2021",
@@ -155,7 +155,7 @@ Book.create!(
   title: "Livro 4",
   description: "Descrição do Livro 4",
   status: 1,
-  genre: nil, # Gênero 1 representa 'Mistério'
+  negotiation_type: 0, # Gênero 1 representa 'Mistério'
   isbn: "978-5432109876",
   publishing_company: "Editora D",
   publication_year: "2018",
@@ -176,7 +176,7 @@ Book.create!(
   title: "Livro 5",
   description: "Descrição do Livro 5",
   status: 1,
-  genre: nil,
+  negotiation_type: 0,
   isbn: "978-1357924680",
   publishing_company: "Editora E",
   publication_year: "2017",
@@ -197,7 +197,7 @@ Book.create!(
   title: "Livro 6",
   description: "Descrição do Livro 6",
   status: 1,
-  genre: nil,
+  negotiation_type: 0,
   isbn: "978-9876543210",
   publishing_company: "Editora F",
   publication_year: "2022",
@@ -218,7 +218,7 @@ Book.create!(
   title: "Livro 7",
   description: "Descrição do Livro 7",
   status: 1,
-  genre: nil,
+  negotiation_type: 0,
   isbn: "978-5678901234",
   publishing_company: "Editora G",
   publication_year: "2016",

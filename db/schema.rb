@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_08_28_235920) do
+ActiveRecord::Schema.define(version: 2023_10_06_005426) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,7 +31,6 @@ ActiveRecord::Schema.define(version: 2023_08_28_235920) do
     t.string "title"
     t.text "description"
     t.integer "status", default: 0
-    t.integer "genre", default: 0
     t.string "isbn"
     t.string "publishing_company"
     t.string "publication_year"
@@ -39,6 +38,7 @@ ActiveRecord::Schema.define(version: 2023_08_28_235920) do
     t.integer "amount", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "negotiation_type", default: 0
     t.index ["added_by_id"], name: "index_books_on_added_by_id"
     t.index ["responsible_id"], name: "index_books_on_responsible_id"
   end
