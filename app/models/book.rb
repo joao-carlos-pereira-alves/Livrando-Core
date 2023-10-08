@@ -9,6 +9,7 @@ class Book < ApplicationRecord
 	has_many :book_categories, dependent: :destroy
 	has_many :ratings, as: :evaluable
 	has_many :trades, dependent: :destroy
+	has_many :favorite_books, dependent: :destroy
 
 	accepts_nested_attributes_for :book_categories
 
