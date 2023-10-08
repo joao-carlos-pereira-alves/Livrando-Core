@@ -31,6 +31,7 @@ Rails.application.routes.draw do
           resources :categories
           resources :favorite_books
           resources :chats
+          post "favorite_books/deslike", to: "favorite_books#deslike"
         end
       end
     end
