@@ -9,7 +9,7 @@ module Api
       # GET /books.json
       def index
         @books = Book.all
-        @books = @books.filter(params, @movies) if filter_params_present?
+        @books = Book.filter(params, @books) if filter_params_present?
         @books = @books.paginate(page: params[:page], per_page: params[:per_page]) if params[:page].present? && params[:per_page].present?
       end
 
