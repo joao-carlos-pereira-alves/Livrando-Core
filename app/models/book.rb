@@ -40,7 +40,7 @@ class Book < ApplicationRecord
 		:swahili
 	]
 
-	def self.filter(params, movies = Movie.all)
+	def self.filter(params, books = Book.all)
     filter_params = [
 			[:author, ->(value) { ["author ILIKE ?", "%#{value}%"] }],
       [:title, ->(value) { ["title ILIKE ?", "%#{value}%"] }],
@@ -58,7 +58,7 @@ class Book < ApplicationRecord
       [:updated_at, ->(value) { ["updated_at = ?", clean_date(value)] }]
     ]
 
-    filter_params.reduce(movies) do |relation, (key, filter)|
+    filter_params.reduce(books) do |relation, (key, filter)|
       if params[key].present?
         relation.where(*filter.call(params[key]))
       else
