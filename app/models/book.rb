@@ -40,7 +40,8 @@ class Book < ApplicationRecord
 		:swahili
 	]
 
-	def self.filter(params, books = Book.all)
+	def self.filter(params, books = Book.all, current_user_id)
+		params[:category_ids] = JSON.parse(params[:category_ids])
     filter_params = [
 			[:author, ->(value) { ["author ILIKE ?", "%#{value}%"] }],
       [:title, ->(value) { ["title ILIKE ?", "%#{value}%"] }],
@@ -57,6 +58,14 @@ class Book < ApplicationRecord
 			[:created_at, ->(value) { ["created_at = ?", clean_date(value)] }],
       [:updated_at, ->(value) { ["updated_at = ?", clean_date(value)] }]
     ]
+
+		if params[:favorite].present?
+			books = books.joins(:favorite_books).where("favorite_books.user_id = ?", current_user_id)
+		end
+
+		if params[:category_ids].present? && !params[:category_ids].empty?
+			books = Book.joins(:book_categories).where(book_categories: { category_id: params[:category_ids] })
+		end
 
     filter_params.reduce(books) do |relation, (key, filter)|
       if params[key].present?
