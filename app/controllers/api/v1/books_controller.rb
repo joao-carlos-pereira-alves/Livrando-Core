@@ -9,7 +9,7 @@ module Api
       # GET /books.json
       def index
         @books = Book.all
-        @books = Book.filter(params, @books) if filter_params_present?
+        @books = Book.filter(params, @books, current_user.id) if filter_params_present?
         @books = @books.paginate(page: params[:page], per_page: params[:per_page]) if params[:page].present? && params[:per_page].present?
       end
 
@@ -63,7 +63,7 @@ module Api
           params.slice(
             :title, :author, :description, :publication_year, :publishing_company,
             :isbn, :negotiation_type, :language, :amount, :status, :responsible, :added_by,
-            :created_at, :updated_at
+            :created_at, :updated_at, :favorite, :category_ids
           ).values.compact.any?
         end
     end
