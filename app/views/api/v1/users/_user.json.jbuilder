@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-json.extract! user, :id, :name, :status, :birth_date, :created_at
+json.extract! user, :id, :name, :status, :birth_date, :uuid, :created_at
 
 json.email user&.obfuscate_email
 json.cpf   user&.obfuscate_cpf
