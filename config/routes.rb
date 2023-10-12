@@ -31,7 +31,9 @@ Rails.application.routes.draw do
           resources :categories
           resources :favorite_books
           resources :chats
+          resources :users
           post "favorite_books/deslike", to: "favorite_books#deslike"
+          get "show_user_with_uuid/:uuid", to: "users#show"
         end
       end
     end

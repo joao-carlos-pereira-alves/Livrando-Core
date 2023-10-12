@@ -47,12 +47,12 @@ module Api
       private
         # Use callbacks to share common setup or constraints between actions.
         def set_user
-          @user = User.find(params[:id])
+          @user = User.find_by(uuid: params[:uuid])
         end
 
         # Only allow a list of trusted parameters through.
         def user_params
-          params.require(:user).permit(:name, :email, :password, :image)
+          params.require(:user).permit(:name, :email, :password, :uuid, :image)
         end
     end
   end

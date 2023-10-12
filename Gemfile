@@ -37,6 +37,7 @@ gem 'cpf_cnpj'
 gem "lockbox"
 gem "blind_index"
 gem 'acts_as_votable'
+gem 'uuidtools'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

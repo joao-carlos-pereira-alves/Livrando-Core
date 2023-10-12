@@ -31,6 +31,8 @@ class User < ApplicationRecord
   validate  :valid_cpf
 
   enum status: [ :unlocked, :blocked ]
+
+  before_create :create_uuid
   
   def token
     token, _payload = Warden::JWTAuth::UserEncoder.new.call(self, :user, nil)
@@ -71,5 +73,9 @@ class User < ApplicationRecord
     unless CPF.valid?(cpf)
       errors.add(:cpf, :invalid)
     end
+  end
+
+  def create_uuid
+    self.uuid = UUIDTools::UUID.random_create.to_s
   end
 end
