@@ -8,7 +8,11 @@ module Api
       # GET /chats
       # GET /chats.json
       def index
+<<<<<<< HEAD
         @chats = Chat.all
+=======
+        @chats = Chat.joins(:chat_users).where(chat_users: { user_id: current_user.id })
+>>>>>>> save-dev
       end
 
       # GET /chats/1
@@ -44,6 +48,19 @@ module Api
         @chat.destroy
       end
 
+<<<<<<< HEAD
+=======
+      def chat_with_chat_user_id
+        @chat = Chat.joins(:chat_users).where(chat_users: { id: params[:chat_user_id] }).first
+
+        if @chat.present?
+          render partial: 'api/v1/chats/chat', locals: { chat: @chat }
+        else
+          render json: { message: 'Bate papo não encontrado.' }, status: 404
+        end
+      end
+
+>>>>>>> save-dev
       private
         # Use callbacks to share common setup or constraints between actions.
         def set_chat

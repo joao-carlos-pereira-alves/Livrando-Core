@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2023_10_12_172953) do
+=======
+ActiveRecord::Schema.define(version: 2023_10_15_181628) do
+>>>>>>> save-dev
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +83,10 @@ ActiveRecord::Schema.define(version: 2023_10_12_172953) do
     t.bigint "chat_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+<<<<<<< HEAD
+=======
+    t.boolean "viewed", default: false
+>>>>>>> save-dev
     t.index ["chat_id"], name: "index_messages_on_chat_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
@@ -138,7 +146,11 @@ ActiveRecord::Schema.define(version: 2023_10_12_172953) do
     t.string "jti", null: false
     t.integer "status", default: 0
     t.integer "report_count", default: 0
+<<<<<<< HEAD
     t.string "uuid", default: "44f767cb-a098-4a89-bd4e-d675429695c7", null: false
+=======
+    t.string "uuid", default: "9e5064ee-dcd0-4854-aeed-f53a9e968e05", null: false
+>>>>>>> save-dev
     t.index ["cpf_bidx"], name: "index_users_on_cpf_bidx", unique: true
     t.index ["email_bidx"], name: "index_users_on_email_bidx", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true
