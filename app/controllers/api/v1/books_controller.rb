@@ -22,11 +22,7 @@ module Api
       # POST /books.json
       def create
         @book = Book.new(book_params)
-<<<<<<< HEAD
         
-=======
-
->>>>>>> save-dev
         if @book.save
           render :show, status: :created
         else
