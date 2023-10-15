@@ -22,6 +22,7 @@ class User < ApplicationRecord
   has_many :sent_trades,       class_name: 'Trade', foreign_key: 'sender_id', dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :chat_users, dependent: :destroy
+  has_many :chats, through: :chat_users
 
   has_encrypted :email, :cpf, :phone
   blind_index   :email, :cpf, :phone
