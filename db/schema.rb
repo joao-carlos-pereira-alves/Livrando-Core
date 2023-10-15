@@ -83,10 +83,7 @@ ActiveRecord::Schema.define(version: 2023_10_15_181628) do
     t.bigint "chat_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-<<<<<<< HEAD
-=======
     t.boolean "viewed", default: false
->>>>>>> save-dev
     t.index ["chat_id"], name: "index_messages_on_chat_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end

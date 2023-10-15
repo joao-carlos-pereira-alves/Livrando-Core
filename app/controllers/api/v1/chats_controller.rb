@@ -48,8 +48,6 @@ module Api
         @chat.destroy
       end
 
-<<<<<<< HEAD
-=======
       def chat_with_chat_user_id
         @chat = Chat.joins(:chat_users).where(chat_users: { id: params[:chat_user_id] }).first
 
@@ -60,7 +58,6 @@ module Api
         end
       end
 
->>>>>>> save-dev
       private
         # Use callbacks to share common setup or constraints between actions.
         def set_chat

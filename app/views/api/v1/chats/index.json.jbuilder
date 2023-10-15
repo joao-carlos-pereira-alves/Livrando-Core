@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-json.array! @chats, partial: "api/v1/chats/chat", as: :chat
-=======
 # frozen_string_literal: true
 
 json.pagination_params do
@@ -16,4 +13,3 @@ end
 json.chats do
   json.array! @chats, partial: "api/v1/chats/chat", as: :chat
 end
->>>>>>> save-dev
