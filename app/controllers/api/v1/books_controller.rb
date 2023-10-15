@@ -22,7 +22,7 @@ module Api
       # POST /books.json
       def create
         @book = Book.new(book_params)
-
+        
         if @book.save
           render :show, status: :created
         else
@@ -54,7 +54,7 @@ module Api
 
         # Only allow a list of trusted parameters through.
         def book_params
-          params.require(:book).permit(:added_by, :responsible, :author, :title, 
+          params.require(:book).permit(:added_by_id, :responsible_id, :author, :title, 
                                        :description, :status, :negotiation_type, :isbn, :publishing_company, 
                                        :publication_year, :language, :amount, book_categories_attributes: [:category_id])
         end
