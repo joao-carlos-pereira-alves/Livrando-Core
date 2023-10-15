@@ -8,11 +8,7 @@ module Api
       # GET /chats
       # GET /chats.json
       def index
-<<<<<<< HEAD
-        @chats = Chat.all
-=======
         @chats = Chat.joins(:chat_users).where(chat_users: { user_id: current_user.id })
->>>>>>> save-dev
       end
 
       # GET /chats/1
