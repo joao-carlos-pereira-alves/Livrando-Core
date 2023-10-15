@@ -138,7 +138,7 @@ ActiveRecord::Schema.define(version: 2023_10_12_172953) do
     t.string "jti", null: false
     t.integer "status", default: 0
     t.integer "report_count", default: 0
-    t.string "uuid", default: "9e5064ee-dcd0-4854-aeed-f53a9e968e05", null: false
+    t.string "uuid", default: "44f767cb-a098-4a89-bd4e-d675429695c7", null: false
     t.index ["cpf_bidx"], name: "index_users_on_cpf_bidx", unique: true
     t.index ["email_bidx"], name: "index_users_on_email_bidx", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true
