@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_10_15_181628) do
+ActiveRecord::Schema.define(version: 2023_10_17_234338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(version: 2023_10_15_181628) do
     t.integer "status", default: 0
     t.integer "report_count", default: 0
     t.string "uuid", default: "9e5064ee-dcd0-4854-aeed-f53a9e968e05", null: false
+    t.datetime "last_seen"
     t.index ["cpf_bidx"], name: "index_users_on_cpf_bidx", unique: true
     t.index ["email_bidx"], name: "index_users_on_email_bidx", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true

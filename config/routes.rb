@@ -35,6 +35,8 @@ Rails.application.routes.draw do
           post "favorite_books/deslike", to: "favorite_books#deslike"
           get "show_user_with_uuid/:uuid", to: "users#show"
           get "chat_with_chat_user_id", to: "chats#chat_with_chat_user_id"
+          get "chat/:chat_id/messages", to: "chats#get_messages"
+          get "save_message_preview", to: "chats#save_message_preview"
         end
       end
     end

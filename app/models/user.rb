@@ -66,6 +66,12 @@ class User < ApplicationRecord
     update!(status: :blocked)
   end
 
+  def online?
+    return false if last_seen.nil?
+
+    last_seen >= 15.minutes.ago
+  end
+
   private
 
   def valid_cpf

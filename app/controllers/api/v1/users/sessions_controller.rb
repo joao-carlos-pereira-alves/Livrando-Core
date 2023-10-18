@@ -4,6 +4,12 @@ module Api
   module V1
     module Users
       class SessionsController < Devise::SessionsController
+        def create
+          super do |user|
+            user.update(last_seen: Time.now)
+          end
+        end
+  
         private
 
         def respond_with(resource, _opts = {})

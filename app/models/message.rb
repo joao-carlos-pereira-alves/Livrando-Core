@@ -7,6 +7,6 @@ class Message < ApplicationRecord
   private
 
   def send_message_for_broadcast
-    ActionCable.server.broadcast("chat_#{chat_id}", body)
+    ActionCable.server.broadcast("chat_#{chat_id}", { body: body, user_id: user.id, type: 'message' })
   end
 end

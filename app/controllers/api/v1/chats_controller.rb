@@ -54,6 +54,25 @@ module Api
         end
       end
 
+      def get_messages
+        chat      = Chat.find(params[:chat_id])
+        @messages = chat.messages
+        @messages = @messages.paginate(page: params[:page], per_page: params[:per_page]) if params[:page].present? && params[:per_page].present?
+
+        render template: 'api/v1/messages/index'
+      end
+
+      def save_message_preview
+        chat      = Chat.find(params[:chat_id])
+        messages = chat.messages.where(user_id: current_user.id)
+
+        if messages.update_all(viewed: true)
+          render json: { message: 'Mensagens visualizadas com sucesso' }, status: 200
+        else
+          render json: { message: 'Não foi possível atualizar as mensagens como visualizadas.' }, status: 400
+        end
+      end
+
       private
         # Use callbacks to share common setup or constraints between actions.
         def set_chat
