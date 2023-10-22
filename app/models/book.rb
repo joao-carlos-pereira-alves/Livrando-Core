@@ -11,6 +11,8 @@ class Book < ApplicationRecord
 	has_many :trades, dependent: :destroy
 	has_many :favorite_books, dependent: :destroy
 
+	has_one_attached :image
+
 	accepts_nested_attributes_for :book_categories
 
 	enum status:   [ :available, :negotiation_in_progress, :borrowed, :donated, :replacement, :unavailable, :lost ], _prefix: :book_status
