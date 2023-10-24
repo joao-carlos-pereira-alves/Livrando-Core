@@ -5,25 +5,26 @@ class Trade < ApplicationRecord
   belongs_to :sender,     class_name: "User", foreign_key: :sender_id
   belongs_to :book
 
-  after_create :update_book_status, if: :book_available?
+  after_create :update_book_status, if: :book_pending?
+  after_create :initialize_trade
 
   validate :only_one_trade_per_book
 
   enum status:   { pending: 0, accepted: 1, completed: 2 }
-  enum category: { donation: 0, loan: 1, exchange: 2 }
+  enum category: { replacement: 0, loan: 1, donation: 2 }
 
   private
 
-  def book_available?
-    book.available?
+  def book_pending?
+    book.status.eql?('available')
+  end
+
+  def initialize_trade
+    Chat.initialize_trade(negotiator_id, sender_id, book.title)
   end
 
   def update_book_status
     book.update(status: :negotiation_in_progress)
-
-    # TODO: add logic for sending notifications if needed
-    Thread.new do
-    end
   end
 
   def only_one_trade_per_book

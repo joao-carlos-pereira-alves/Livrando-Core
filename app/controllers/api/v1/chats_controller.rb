@@ -45,7 +45,7 @@ module Api
       end
 
       def chat_with_chat_user_id
-        @chat = Chat.joins(:chat_users).where(chat_users: { id: params[:chat_user_id] }).first
+        @chat = Chat.find(params[:chat_user_id])
 
         if @chat.present?
           render partial: 'api/v1/chats/chat', locals: { chat: @chat }

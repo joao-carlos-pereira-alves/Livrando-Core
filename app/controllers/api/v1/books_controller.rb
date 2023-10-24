@@ -9,6 +9,7 @@ module Api
       # GET /books.json
       def index
         @books = Book.all
+        @books = @books.joins(:ratings).where('ratings.rating > 5').distinct if params[:is_popular]
         @books = Book.filter(params, @books, current_user.id) if filter_params_present?
         @books = @books.paginate(page: params[:page], per_page: params[:per_page]) if params[:page].present? && params[:per_page].present?
       end
@@ -63,7 +64,7 @@ module Api
           params.slice(
             :title, :author, :description, :publication_year, :publishing_company,
             :isbn, :negotiation_type, :language, :amount, :status, :responsible_id, :added_by_id,
-            :created_at, :updated_at, :favorite, :category_ids
+            :created_at, :updated_at, :favorite, :category_ids, :is_popular
           ).values.compact.any?
         end
     end
