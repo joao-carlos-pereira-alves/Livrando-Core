@@ -84,15 +84,15 @@ class User < ApplicationRecord
   end
 
   def donation_books
-    negotiated_trades.where(category: 'donation').size
+    negotiated_trades.where(category: 'donation', status: 'completed').size
   end
 
   def loan_books
-    negotiated_trades.where(category: 'loan').size
+    negotiated_trades.where(category: 'loan', status: 'completed').size
   end
 
   def replacement_books
-    negotiated_trades.where(category: 'replacement').size
+    negotiated_trades.where(category: 'replacement', status: 'completed').size
   end
 
   private

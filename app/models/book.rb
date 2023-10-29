@@ -15,7 +15,7 @@ class Book < ApplicationRecord
 
 	accepts_nested_attributes_for :book_categories
 
-	enum status:   [ :available, :negotiation_in_progress, :borrowed, :donated, :replacement, :unavailable, :lost ], _prefix: :book_status
+	enum status:   [ :available, :negotiation_in_progress, :borrowed, :donated, :replacement, :unavailable, :lost, :completed ], _prefix: :book_status
 	enum negotiation_type: [ :replacement, :loan, :donation ]
 	enum language: [
 		"Português",
