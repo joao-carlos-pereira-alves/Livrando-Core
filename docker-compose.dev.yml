@@ -20,7 +20,7 @@ services:
       - '.:/app'
     environment:
       PORT: ${BACKEND_PORT}
-      SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+      SECRET_KEY_BASE: 936d7c733804b658d863877bf0fd71b6b60da8fde36cf96ab7d2427cefca9f3255fb9d02fe98c9afdfe96feae396c58cd9b8fc27d0cb459455eb5c71f8913aa4
       RAILS_ENV: development
       DATABASE_HOST: db
       DATABASE_USER: postgres
@@ -29,7 +29,7 @@ services:
       BLIND_INDEX_MASTER_KEY: ${BLIND_INDEX_MASTER_KEY}
       LOCKBOX_MASTER_KEY: ${LOCKBOX_MASTER_KEY}
     ports:
-      - '3001:3001'
+      - '3000:3000'
     depends_on:
       - db
     networks:
