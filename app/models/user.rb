@@ -30,8 +30,7 @@ class User < ApplicationRecord
   blind_index   :email, :cpf, :phone
   
   validates :email, presence: true, format: { with: /\A[^@\s]+@[^@\s]+\z/ }
-  validates :name, presence: true
-  validates :cpf, :phone, presence: true, uniqueness: true
+  validates :name, :cpf, presence: true
   validate  :valid_cpf
 
   enum status: [ :unlocked, :blocked ]
