@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  mount ActionCable.server => '/websocket'
-
   constraints subdomain: /.*/ do
     devise_for(
       :users,
@@ -15,7 +13,7 @@ Rails.application.routes.draw do
       },
       controllers: {
         sessions: 'api/v1/users/sessions',
-        registrations: 'api/v1/users',
+        registrations: 'api/v1/users/registrations',
         passwords: 'api/v1/users/passwords'
       },
       defaults: { format: :json }
@@ -25,18 +23,7 @@ Rails.application.routes.draw do
       namespace :v1 do
         defaults format: :json do
           resources :books
-          resources :reports
-          resources :ratings
-          resources :trades
-          resources :categories
           resources :favorite_books
-          resources :chats
-          resources :users
-          post "favorite_books/deslike", to: "favorite_books#deslike"
-          get "show_user_with_uuid/:uuid", to: "users#show"
-          get "chat_with_chat_user_id", to: "chats#chat_with_chat_user_id"
-          get "chat/:chat_id/messages", to: "chats#get_messages"
-          get "save_message_preview", to: "chats#save_message_preview"
         end
       end
     end
