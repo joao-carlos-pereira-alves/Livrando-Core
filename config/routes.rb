@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       },
       controllers: {
         sessions: 'api/v1/users/sessions',
-        registrations: 'api/v1/users/registrations',
+        registrations: 'api/v1/users',
         passwords: 'api/v1/users/passwords'
       },
       defaults: { format: :json }
