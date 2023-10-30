@@ -15,35 +15,36 @@ class Book < ApplicationRecord
 
 	accepts_nested_attributes_for :book_categories
 
-	enum status:   [ :available, :negotiation_in_progress, :borrowed, :donated, :replacement, :unavailable, :lost ], _prefix: :book_status
+	enum status:   [ :available, :negotiation_in_progress, :borrowed, :donated, :replacement, :unavailable, :lost, :completed ], _prefix: :book_status
 	enum negotiation_type: [ :replacement, :loan, :donation ]
 	enum language: [
-		:portuguese,
-		:english,
-		:spanish,
-		:french,
-		:german,
-		:chinese,
-		:japanese,
-		:korean,
-		:arabic,
-		:russian,
-		:italian,
-		:dutch,
-		:hindi,
-		:bengali,
-		:urdu,
-		:turkish,
-		:persian,
-		:vietnamese,
-		:thai,
-		:indonesian,
-		:malay,
-		:swahili
+		"Português",
+		"Inglês",
+		"Espanhol",
+		"Francês",
+		"Alemão",
+		"Chinês",
+		"Japonês",
+		"Coreano",
+		"Árabe",
+		"Russo",
+		"Italiano",
+		"Holandês",
+		"Hindi",
+		"Bengali",
+		"Urdu",
+		"Turco",
+		"Persa",
+		"Vietnamita",
+		"Tailandês",
+		"Indonésio",
+		"Malaio",
+		"Suaíli"
 	]
 
-	def self.filter(params, books = Book.all, current_user_id)
+	def self.filter(params, books, current_user_id)
 		params[:category_ids] = JSON.parse(params[:category_ids])
+
     filter_params = [
 			[:author, ->(value) { ["author ILIKE ?", "%#{value}%"] }],
       [:title, ->(value) { ["title ILIKE ?", "%#{value}%"] }],
@@ -66,7 +67,7 @@ class Book < ApplicationRecord
 		end
 
 		if params[:category_ids].present? && !params[:category_ids].empty?
-			books = Book.joins(:book_categories).where(book_categories: { category_id: params[:category_ids] })
+			books = books.joins(:book_categories).where(book_categories: { category_id: params[:category_ids] })
 		end
 
     filter_params.reduce(books) do |relation, (key, filter)|
@@ -89,5 +90,15 @@ class Book < ApplicationRecord
       raise ArgumentError, "Invalid date format: #{date_string}. Please use dd-mm-yyyy or dd/mm/yyyy format."
     end
     date_string
+  end
+
+	def average_rating
+    total_ratings = ratings.sum(:rating)
+    num_ratings = ratings.count
+
+    return 0.5 if num_ratings.zero?  # Retorna 0.5 se não houver ratings.
+
+    average = (total_ratings.to_f / num_ratings).round(1)
+    [average, 5.0].min
   end
 end

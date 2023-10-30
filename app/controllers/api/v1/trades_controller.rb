@@ -9,6 +9,7 @@ module Api
       # GET /trades.json
       def index
         @trades = Trade.all
+        @trades = @trades.where(negotiator_id: current_user.id).or(@trades.where(sender_id: current_user.id)).distinct
       end
 
       # GET /trades/1
@@ -52,7 +53,7 @@ module Api
 
         # Only allow a list of trusted parameters through.
         def trade_params
-          params.require(:trade).permit(:negotiator_id, :sender_id, :status, :category, :negociation_date)
+          params.require(:trade).permit(:book_id, :negotiator_id, :sender_id, :status, :category, :negociation_date)
         end
     end
   end

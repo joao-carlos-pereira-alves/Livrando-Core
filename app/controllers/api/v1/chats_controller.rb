@@ -45,7 +45,7 @@ module Api
       end
 
       def chat_with_chat_user_id
-        @chat = Chat.joins(:chat_users).where(chat_users: { id: params[:chat_user_id] }).first
+        @chat = Chat.find(params[:chat_user_id])
 
         if @chat.present?
           render partial: 'api/v1/chats/chat', locals: { chat: @chat }
@@ -64,7 +64,7 @@ module Api
 
       def save_message_preview
         chat      = Chat.find(params[:chat_id])
-        messages = chat.messages.where(user_id: current_user.id)
+        messages = chat.messages.where.not(user_id: current_user.id)
 
         if messages.update_all(viewed: true)
           render json: { message: 'Mensagens visualizadas com sucesso' }, status: 200

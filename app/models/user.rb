@@ -30,7 +30,7 @@ class User < ApplicationRecord
   blind_index   :email, :cpf, :phone
   
   validates :email, presence: true, format: { with: /\A[^@\s]+@[^@\s]+\z/ }
-  validates :name, presence: true
+  validates :name, :cpf, presence: true
   validate  :valid_cpf
 
   enum status: [ :unlocked, :blocked ]
@@ -72,6 +72,26 @@ class User < ApplicationRecord
     return false if last_seen.nil?
 
     last_seen >= 15.minutes.ago
+  end
+
+  def published_books
+    created_books.size
+  end
+
+  def reviewed_books
+    evaluated_objects.size
+  end
+
+  def donation_books
+    negotiated_trades.where(category: 'donation', status: 'completed').size
+  end
+
+  def loan_books
+    negotiated_trades.where(category: 'loan', status: 'completed').size
+  end
+
+  def replacement_books
+    negotiated_trades.where(category: 'replacement', status: 'completed').size
   end
 
   private
