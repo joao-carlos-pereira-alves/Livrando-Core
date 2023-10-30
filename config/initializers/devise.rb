@@ -313,7 +313,7 @@ Devise.setup do |config|
     # Setting secret key that will be used to sign generated tokens
     # e74b60e9122e505bc74f8765d1a6f63a0506748e9492236d31ba0e08788e92d7bed1a494b27802dd1b9d5c07072ef72c637d15be6bdd0a9d03fbf82fb42bf752
     
-    jwt.secret = ENV["SECRET_KEY_BASE"]
+    jwt.secret = "338eb143ff88bfc74a4f09969195b534e1fcce264501d147363ebfd224a619e67632f6a25722fdfa6e85231cd30ccc4c76f9c73dafbde0d7b487ba86becdbfe4"
     
     jwt.revocation_requests = [
       ["DELETE", %r{api/v1/logout}],

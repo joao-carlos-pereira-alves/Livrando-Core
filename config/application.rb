@@ -34,6 +34,8 @@ module Backend
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
+    config.action_cable.mount_path = '/websocket'
+
     # config.active_job.queue_adapter = :sidekiq
 
     # Only loads a smaller set of middleware suitable for API only apps.
