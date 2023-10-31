@@ -4,6 +4,7 @@ module Api
   module V1
     class UsersController < ApplicationController
       before_action :set_user, only: %i[ show update destroy ]
+      skip_before_action :authenticate_user!, :only => :create
 
       # GET /users
       # GET /users.json
@@ -47,7 +48,7 @@ module Api
       private
         # Use callbacks to share common setup or constraints between actions.
         def set_user
-          @user = User.find_by(uuid: params[:uuid])
+          @user = User.find(params[:id])
         end
 
         # Only allow a list of trusted parameters through.
