@@ -62,7 +62,7 @@ class Book < ApplicationRecord
       [:updated_at, ->(value) { ["updated_at = ?", clean_date(value)] }]
     ]
 
-		if params[:favorite].present?
+		if params[:my_books].present?
 			books = books.joins(:favorite_books).where("favorite_books.user_id = ?", current_user_id)
 		end
 
