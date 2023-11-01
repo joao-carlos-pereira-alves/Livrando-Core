@@ -52,7 +52,7 @@ module Api
 
         # Only allow a list of trusted parameters through.
         def rating_params
-          params.require(:rating).permit(:rating, :comment, :evaluable_id)
+          params.require(:rating).permit(:rating, :comment, :evaluable_id, :evaluable_type, :evaluator_id)
         end
     end
   end
