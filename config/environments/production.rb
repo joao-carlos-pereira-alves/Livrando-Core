@@ -80,6 +80,9 @@ Rails.application.configure do
   config.log_formatter = ::Logger::Formatter.new
   config.log_level = :debug
 
+  config.action_cable.disable_request_forgery_protection = true
+  config.action_cable.allowed_request_origins = ['https://livrando.vercel.app']
+
   # Use a different logger for distributed setups.
   # require "syslog/logger"
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
