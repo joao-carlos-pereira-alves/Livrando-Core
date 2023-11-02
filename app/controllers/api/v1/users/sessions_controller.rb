@@ -5,8 +5,14 @@ module Api
     module Users
       class SessionsController < Devise::SessionsController
         def create
-          super do |user|
-            user.update(last_seen: Time.now)
+          user = User.find_by(email: params[:user][:email])
+
+          if user && user.status == :blocked
+            render status: :unauthorized, json: { error: "Sua conta foi bloqueada. Entre em contato com o suporte." }
+          else
+            super do |user|
+              user.update(last_seen: Time.now)
+            end
           end
         end
   
