@@ -7,6 +7,7 @@ class Report < ApplicationRecord
   after_create :block_reported_user, if: :there_three_complaints?
   after_create :increment_report_count, unless: :there_three_complaints?
 
+  validates :reporter, uniqueness: { scope: :reporter_id, message: "Você já denunciou este usuário." }
   validate :cannot_report_self
 
   enum reason: [ 'Spam', 'Harassment', 'Inappropriate Content', 'Fake Account', 'Other' ]

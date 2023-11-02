@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ReportsController < ApplicationController
+class Api::V1::ReportsController < ApplicationController
   before_action :set_report, only: %i[ show update destroy ]
 
   # GET /reports
@@ -51,6 +51,6 @@ class ReportsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def report_params
-      params.require(:report).permit(:user_id, :description)
+      params.require(:report).permit(:reporter_id, :reported_user_id, :reason, :description)
     end
 end
