@@ -24,9 +24,9 @@ O objetivo do **Livrando** é criar um espaço eficiente e seguro para a troca e
 ### Configuração do Projeto
 
 1. Clone o repositório:
-   ```
-   git clone https://github.com/joao-carlos-pereira-alves/Livrando-Core
-   ```
+  ```
+  git clone https://github.com/joao-carlos-pereira-alves/Livrando-Core
+  ```
 2. Entre no diretório do projeto:
   ```
   cd Livrando-Core
@@ -36,7 +36,6 @@ O objetivo do **Livrando** é criar um espaço eficiente e seguro para a troca e
   bundle install
   ```
 4. Inicie o servidor:
-
   ```
   rails server
   ```
