@@ -27,7 +27,7 @@ O objetivo do **Livrando** é criar um espaço eficiente e seguro para a troca e
    ```
    git clone https://github.com/joao-carlos-pereira-alves/Livrando-Core
    ```
-2. Entre no diretório do projeto:
+3. Entre no diretório do projeto:
   ```
   cd Livrando-Core
   ```
